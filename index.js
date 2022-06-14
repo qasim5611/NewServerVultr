@@ -19,8 +19,15 @@ app.use(cors());
 
 
 var bodyParser = require("body-parser");
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: "50mb"}));
+app.use(
+  bodyParser.urlencoded({
+    limit: "50mb",
+    extended: true,
+    parameterLimit: 50000,
+  })
+);
+
 
 const _dirname = path.resolve();
 app.use("uploads", express.static(path.join(_dirname, "uploads")));
